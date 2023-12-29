@@ -1,6 +1,7 @@
 package nobody;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.*;
 
@@ -195,11 +196,12 @@ public class Aoc201503 {
     }
 
     public static void main(String[] args) throws Exception {
-        //print del output para ver el array bieb
+        //print del output para ver el array bien
         PrintStream fileOut = new PrintStream("./out.txt");
         PrintStream originalOut = System.out;
         System.setOut(fileOut);
-        var str = new String(Files.readAllBytes(Paths.get("movement.txt")));
+        //Path path = Paths.get(movement.txt").toAbsolutePath();
+        var str = new String(Files.readAllBytes(Paths.get("aoc-2015/movement.txt")));
         Aoc201503 aoc = new Aoc201503(); // Instance de Aoc201501
         var array = aoc.evaluateMovement(str);
         var array2 = aoc.evaluateBothMovements(str);

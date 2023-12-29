@@ -66,7 +66,7 @@ public class Aoc201502 {
     public static void main(String[] args) throws Exception {
         //Código para resolver el problema AOC201502 parte 1
         Aoc201502 aoc = new Aoc201502(); // Instance de Aoc201502
-        var str = new String(Files.readAllBytes(Paths.get("dimensions.txt")));
+        var str = new String(Files.readAllBytes(Paths.get("aoc-2015/dimensions.txt")));
         var pappersqrfoot = aoc.calculateWrappingPapper(str);
         System.out.println("Feet of paper needed: "+ pappersqrfoot);
         //System.out.println(System.getProperty("user.dir"));
