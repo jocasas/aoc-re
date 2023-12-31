@@ -1,3 +1,1 @@
-# AOC 
-------
-Collection of AOC problems solved for fun.
+Collection of solved puzzles of aoc for fun. (wip)
