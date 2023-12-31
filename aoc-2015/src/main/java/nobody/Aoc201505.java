@@ -14,6 +14,7 @@ public class Aoc201505 {
         List<Character> vowels = Arrays.asList('a', 'e', 'i', 'o', 'u'); // array list
         List<String> strings = Arrays.asList("ab", "cd", "pq", "xy"); // array list
         int niceStrings = 0;
+        int niceStrings2 = 0;
 
         //code
         for (String line : lines) {
@@ -23,12 +24,20 @@ public class Aoc201505 {
             int twiceInRow = checkTwiceInRow(line);
             int contains = checkPattern(line, strings);
 
+
             if (vowelCount >= 3 && twiceInRow == 1 && contains == 0) {
                 niceStrings++;
             }
+
+            if (hasNonOverlappingPair(line) && hasRepeatingLetterWithOneBetween(line)) {
+                niceStrings2++;
+            }
+
         }
+
+
         System.out.println("Nicestringgs First Method: " + niceStrings);
-        System.out.println("Nicestringgs Second Method: " + niceStrings);
+        System.out.println("Nicestringgs Second Method: " + niceStrings2);
     }
 
     private static int countLineVowels(String line, List<Character> vowels) {
@@ -40,6 +49,26 @@ public class Aoc201505 {
             }
         }
         return vowelCount;
+    }
+
+    private static boolean hasNonOverlappingPair(String line) {
+        for (int i = 0; i < line.length() - 1; i++) {
+            String pair = line.substring(i, i + 2);
+            String restOfString = line.substring(i + 2);
+            if (restOfString.contains(pair)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasRepeatingLetterWithOneBetween(String line) {
+        for (int i = 0; i < line.length() - 2; i++) {
+            if (line.charAt(i) == line.charAt(i + 2)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static int checkTwiceInRow(String line) {
