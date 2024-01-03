@@ -7,6 +7,12 @@ import java.nio.file.Paths;
 public class Aoc201506 {
 
     public static void main(String[] args) throws IOException {
+        firstPart();
+        secondPart();
+
+    }
+
+    private static void firstPart() throws IOException {
         int[][] grid = new int[1000][1000];
         var str = new String(Files.readAllBytes(Paths.get("aoc-2015/gridcord.txt")));
         String[] lines = str.split("\\n");
@@ -87,7 +93,92 @@ public class Aoc201506 {
             }
             System.out.println();
         }*/
+    }
 
+    private static void secondPart() throws IOException {
+        int[][] grid = new int[1000][1000];
+        var str = new String(Files.readAllBytes(Paths.get("aoc-2015/gridcord.txt")));
+        String[] lines = str.split("\\n");
 
+        // Initialize the grid
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 1000; j++) {
+                grid[i][j] = 0;
+            }
+        }
+
+        for (String line : lines) {
+            String command;
+            String[] start;
+            String[] end;
+
+            if (line.contains("turn on")) {
+                String[] parts = line.split("turn on");
+                command = "turn on";
+                String[] coordinates = parts[1].trim().split(" through ");
+                start = coordinates[0].split(",");
+                end = coordinates[1].split(",");
+            } else if (line.contains("turn off")) {
+                String[] parts = line.split("turn off");
+                command = "turn off";
+                String[] coordinates = parts[1].trim().split(" through ");
+                start = coordinates[0].split(",");
+                end = coordinates[1].split(",");
+            } else { // toggle
+                String[] parts = line.split("toggle");
+                command = "toggle";
+                String[] coordinates = parts[1].trim().split(" through ");
+                start = coordinates[0].split(",");
+                end = coordinates[1].split(",");
+            }
+
+            //System.out.println("Command: " + command);
+            //System.out.println("Start: (" + start[0] + ", " + start[1] + ")");
+            //System.out.println("End: (" + end[0] + ", " + end[1] + ")");
+            //System.out.println();
+
+            // Change values from start to end
+            int commandSTDOUT = 0;
+            for (int i = Integer.parseInt(start[0]); i <= Integer.parseInt(end[0]); i++) {
+                for (int j = Integer.parseInt(start[1]); j <= Integer.parseInt(end[1]); j++) {
+                    switch (command) {
+                        case "toggle":
+                            if(commandSTDOUT == 5) {
+        //                        System.out.println("Grid TOGGLE: [" + i + "] " + "[" + j + "] " + ":" + grid[i][j] + " -> " + (grid[i][j] + 2));
+                            }
+                            grid[i][j] += 2; // Toggle the value
+                            commandSTDOUT++;
+                            break;
+                        case "turn on":
+                            if(commandSTDOUT == 5) {
+      //                          System.out.println("Grid TURN ON: [" + i + "] " + "[" + j + "] " + ":" + grid[i][j] + " -> " + (grid[i][j] + 1));
+                            }
+                            grid[i][j] += 1; // Turn on the light
+                            commandSTDOUT++;
+                            break;
+                        case "turn off":
+                            if (grid[i][j] > 0) {
+                                if(commandSTDOUT == 5) {
+    //                                System.out.println("Grid TURN OFF: [" + i + "] " + "[" + j + "] " + ":" + grid[i][j] + " -> " + (grid[i][j] - 1));
+                                }
+                                grid[i][j] -= 1; // Turn off the light
+                                commandSTDOUT++;
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid command");
+                            break;
+                    }
+                }
+            }
+        }
+        int totalBrightness = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                totalBrightness += grid[i][j];
+            }
+        }
+
+        System.out.println("Light Volume in the grid: " + totalBrightness);
     }
 }
